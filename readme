@@ -1,0 +1,26 @@
+Create a MySQL database trainee_app with a users table
+(id, name, email, age, created_at).
+ 
+Implement the following APIs:
+ 
+POST /api/users – Add a new user
+ 
+GET /api/users – Fetch all users
+ 
+GET /api/users/:id – Fetch user by ID
+ 
+PUT /api/users/:id – Update user details
+ 
+DELETE /api/users/:id – Delete a user
+ 
+Validate inputs:
+ 
+name and email are mandatory
+ 
+email must be unique
+ 
+age must be a number
+ 
+Handle errors properly and return JSON responses.
+ 
+Run the server on port 3000.

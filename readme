@@ -24,3 +24,9 @@ age must be a number
 Handle errors properly and return JSON responses.
  
 Run the server on port 3000.
+
+
+
+#### Knex ########
+npx knex migrate:make create_users_table  //create new migration file
+npx knex migrate:latest                   // run migration

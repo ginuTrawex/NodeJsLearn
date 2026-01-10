@@ -1,11 +1,12 @@
 import Joi from 'joi';
 
-export const createUserSchema = Joi.object({
+const createUserSchema = Joi.object({
     name: Joi.string()
         .trim()
         .min(2)
         .required()
         .messages({
+            'string.min': 'Name length aleast 2',
             'string.base': 'Name must be a string',
             'string.empty': 'Name is required',
             'any.required': 'Name is required',
@@ -28,3 +29,5 @@ export const createUserSchema = Joi.object({
             'number.base': 'Age must be a number',
         }),
 });
+
+export default createUserSchema;

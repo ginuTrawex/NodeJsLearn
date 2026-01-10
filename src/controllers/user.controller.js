@@ -1,4 +1,5 @@
 import db from "../../config/knex.js";
+import createUserSchema from '../validations/user.validation.js';
 
 export const getAllUsers = async (req, res) => {
     try {
@@ -12,13 +13,21 @@ export const getAllUsers = async (req, res) => {
 
 export const addUser = async (req, res) => {
     try {
-        const { name, email, age } = req.body;
-        if (!name || !email) {
+
+        const { error, value } = createUserSchema.validate(req.body, {
+            abortEarly: false,
+            stripUnknown: true
+        });
+
+        if (error) {
             return res.status(400).json({
-                success: false,
-                message: 'Name and email are required',
+                message: 'Validation error',
+                errors: error.details.map(d => d.message),
             });
         }
+
+        const { name, email, age } = value;
+
         if (age !== undefined && isNaN(Number(age))) {
             return res.status(400).json({
                 success: false,
@@ -37,7 +46,7 @@ export const addUser = async (req, res) => {
         const [id] = await db('users').insert({
             name,
             email,
-            age,
+            ...(age && { age }),
         });
 
         res.status(201).json({
